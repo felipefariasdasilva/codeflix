@@ -24,8 +24,36 @@ http://localhost:8000
 
 Nosso aluno [Yuri Koster](https://github.com/yurikoster1) criou outra opção do repositório organizando melhor os arquivos Docker, se quiserem utilizar basta clonar o branch ```more_organized```.
 
-## Rodar o Laravel
+## Comandos Laravel
 
 ```bash
+
+# executar o bash do laravel
+
 $ docker exec -it micro-videos-app bash
 ```
+
+```bash
+
+# rodando a migrate no laravel
+
+$ php artisan migrate:refresh --seed
+```
+
+```bash
+
+# usando o tinker
+
+$ php artisan tinker
+```
+
+```bash
+
+# criando model
+
+$ php artisan make:model??????
+```
+
+
+
+
