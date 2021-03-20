@@ -1,6 +1,8 @@
-# :mag: Code Micro Videos
+# :movie_camera: Code Micro Videos
 
 Microsserviço de catálogo de vídeos
+
+https://img.shields.io/appveyor/tests/felipefariasdasilva/https://github.com/felipefariasdasilva/codeflix.git
 
 ## Começando
 
@@ -38,12 +40,80 @@ $ cd codeflix
 $ docker-compose up -d
 ```
 
-Finalize com um exemplo obtendo dados do sistema ou fazendo uma pequena demostração do funcionamento da aplicação
+##Observação
 
+Caso você esteja usando o SO Windows e sem utilizar o WSL2, você terá problemas em executar o `docker-compose`, pois existe diferenças no sistema de fim de arquivo (CRLF/LF).
+Para contornar essa situção faça o seguinte:
+
+1. Abra o `git bash`
+2. Caminhe até a pasta `.docker/` do projeto
+3. Execute o comando 
+```bash
+   $ dos2unix entrypoint.sh
+```
+## Endpoints
+
+* Recurso: Category
+```bash
+# GET ALL CATEGORIES
+$ /api/categories
+
+# GET CATEGORY BY ID
+$ /api/categories/{id}
+
+# POST CATEGORY
+$ /api/categories
+
+# UPDATE CATEGORY
+$ /api/categories/{id}
+
+# DELETE CATEGORY
+$ /api/categories/{id}
+
+```
+
+* Recurso: Genre
+```bash
+# GET ALL GENRES
+$ /api/genres
+
+# GET GENRE BY ID
+$ /api/genres/{id}
+
+# POST GENRE
+$ /api/genres
+
+# UPDATE GENRE
+$ /api/genres/{id}
+
+# DELETE GENRE
+$ /api/genres/{id}
+
+```
 
 ## Executando os testes
 
-Explique como rodar os testes automáticos do seu sistema caso haja algum
+Para rodar os testes automáticos do seu sistema siga os comandos abaixo:
+
+```bash
+# rodando todos testes unitários
+
+$ vendor/bin/phpunit
+
+```
+
+```bash
+# rodando teste unitário filtrado por classe
+
+$ vendor/bin/phpunit --filter <ClassName>
+
+```
+
+```bash
+# rodando teste unitário filtrado por classe e por método
+
+$ vendor/bin/phpunit --filter <ClassName>::<Method>
+````
 
 
 ### Análise dos testes fim-a-fim
@@ -77,7 +147,7 @@ Por favor leia [CONTRIBUTING.md]() para mais detalhes a respeito do nosso códig
 
 ## Versionamento
 
-Nós usamos [GitHub](https://github.com/ para versionamento. Para visualizar as versões disponíveis veja [tags nesse repositórios](https://github.com/your/project/tags).
+Nós usamos [GitHub](https://github.com/) para versionamento. Para visualizar as versões disponíveis veja [tags nesse repositórios](https://github.com/your/project/tags).
 
 ## Autores
 
@@ -97,41 +167,47 @@ Esse projeto é licenciado pela MIT License - veja também [LICENSE.md](LICENSE.
 ## Apêndice
 
 ```bash
-
 # executar o bash do laravel
 
 $ docker exec -it micro-videos-app bash
 ```
 
 ```bash
-
 # rodando a migrate no laravel
 
 $ php artisan migrate:refresh --seed
 ```
 
 ```bash
-
 # usando o tinker
 
 $ php artisan tinker
 ```
 
 ```bash
-
 # criando model (--all irá gerar a migração, factory e controller para o model)
 
 $ php artisan make:model <Folder>/<Model> --all
 ```
 
 ```bash
-
 # caso a migration nao funcione
 
 $ composer dump-autoload
 
 $ php artisan migrate:fresh --seed
 ```
+
+```bash
+# criando a classe de teste unitário em FEATURE
+
+$ php artisan make:test <ClassName>+'Test'
+
+# criando a classe de teste unitário em UNIT
+
+$ php artisan make:test <ClassName>+'Test' --unit
+```
+
 
 
 
