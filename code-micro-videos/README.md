@@ -1,17 +1,16 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="http://maratona.fullcycle.com.br/public/img/logo-maratona.png"/></a>
-</p>
+# Code Micro Videos
 
 ## Descrição
 
-Microsserviço de catálogo
+Microsserviço de catálogo de vídeos
 
 ## Rodar a aplicação
 
 #### Crie os containers com Docker
 
 ```bash
-$ docker-compose up
+
+$ docker-compose up -d
 ```
 
 #### Accesse no browser
@@ -21,10 +20,6 @@ http://localhost:8000
 ```
 
 ## Apéndice
-
-Nosso aluno [Yuri Koster](https://github.com/yurikoster1) criou outra opção do repositório organizando melhor os arquivos Docker, se quiserem utilizar basta clonar o branch ```more_organized```.
-
-## Comandos Laravel
 
 ```bash
 
@@ -49,11 +44,19 @@ $ php artisan tinker
 
 ```bash
 
-# criando model
+# criando model (--all irá gerar a migração, factory e controller para o model)
 
-$ php artisan make:model??????
+$ php artisan make:model <Folder>/<Model> --all
 ```
 
+```bash
+
+# caso a migration nao funcione
+
+$ composer dump-autoload
+
+$ php artisan migrate:fresh --seed
+```
 
 
 
