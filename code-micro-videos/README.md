@@ -2,13 +2,11 @@
 
 Microsserviço de catálogo de vídeos
 
-https://img.shields.io/appveyor/tests/felipefariasdasilva/https://github.com/felipefariasdasilva/codeflix.git
-
 ## Começando
 
 As instruções a seguir irão lhe proporcionar uma cópia deste projeto e de como rodar em sua máquina local para propósito de desenvolvimento e testes. Veja na sessão de [deployment](#Deployment) para saber com mais detalhes de como dar deploy em sua aplicação.
 
-### Pre-requisitos
+### Pré-requisitos
 
 Dependências necessárias para se instalar o software e como instalá-las.
 
@@ -40,7 +38,7 @@ $ cd codeflix
 $ docker-compose up -d
 ```
 
-##Observação
+## Observação
 
 Caso você esteja usando o SO Windows e sem utilizar o WSL2, você terá problemas em executar o `docker-compose`, pois existe diferenças no sistema de fim de arquivo (CRLF/LF).
 Para contornar essa situção faça o seguinte:
@@ -168,46 +166,62 @@ Esse projeto é licenciado pela MIT License - veja também [LICENSE.md](LICENSE.
 
 ```bash
 # executar o bash do laravel
-
 $ docker exec -it micro-videos-app bash
 ```
 
 ```bash
 # rodando a migrate no laravel
-
 $ php artisan migrate:refresh --seed
 ```
 
 ```bash
 # usando o tinker
-
 $ php artisan tinker
 ```
 
 ```bash
 # criando model (--all irá gerar a migração, factory e controller para o model)
-
 $ php artisan make:model <Folder>/<Model> --all
 ```
 
 ```bash
 # caso a migration nao funcione
-
 $ composer dump-autoload
-
 $ php artisan migrate:fresh --seed
 ```
 
 ```bash
 # criando a classe de teste unitário em FEATURE
-
 $ php artisan make:test <ClassName>+'Test'
 
 # criando a classe de teste unitário em UNIT
-
 $ php artisan make:test <ClassName>+'Test' --unit
 ```
 
+```bash
+# acessando serviço via docker-compose
+$ docker-compose exec <service> bash
+
+# vendo as variáveis ambiente (após comando acima)
+$ printenv
+```
+
+## Acessando o banco de dados
+
+```bash
+
+# acessando serviço via docker-compose
+$ docker-compose exec db bash
+
+# logando no banco de dados
+$ mysql -u<user> -p<password>
+
+# acessando o banco de dados
+$ use <database>;
+
+# vizualizando tabelas
+$ show tables;
+```
 
 
 
