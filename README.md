@@ -95,21 +95,12 @@ Para rodar os testes automáticos do seu sistema siga os comandos abaixo:
 
 ```bash
 # rodando todos testes unitários
-
 $ vendor/bin/phpunit
 
-```
-
-```bash
 # rodando teste unitário filtrado por classe
-
 $ vendor/bin/phpunit --filter <ClassName>
 
-```
-
-```bash
 # rodando teste unitário filtrado por classe e por método
-
 $ vendor/bin/phpunit --filter <ClassName>::<Method>
 ````
 
