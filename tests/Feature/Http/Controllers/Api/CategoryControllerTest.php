@@ -160,15 +160,15 @@ class CategoryControllerTest extends TestCase
         $this->assertNotNull(Category::withTrashed()->find($this->category->id));
     }
 
-    protected function routeStore(){
+    protected function routeStore(): string{
         return route('categories.store');
     }
 
-    protected function routeUpdate(){
+    protected function routeUpdate(): string{
         return route('categories.update', ['categoy' => $this->category->id]);
     }
 
-    protected function model(){
+    protected function model(): string{
         return Category::class;
     }
 }
