@@ -178,4 +178,15 @@ class GenreControllerTest extends TestCase
         $this->assertNotNull(Genre::withTrashed()->find($genre->id));
     }
 
+    protected function model() {
+        // TODO: Implement model() method.
+    }
+
+    protected function routeStore() {
+        // TODO: Implement routeStore() method.
+    }
+
+    protected function routeUpdate() {
+        // TODO: Implement routeUpdate() method.
+    }
 }
