@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 
@@ -14,35 +15,16 @@ class GenreController extends Controller
         'is_active' => 'boolean'
     ];
 
-    public function index()
-    {
-        return Genre::all();
+    protected function model() {
+        return Genre::class;
     }
 
-    public function store(Request $request)
-    {
-        $this->validate($request, $this->rules);
-        $genre = Genre::create($request->all());
-        $genre->refresh();
-        return $genre;
+    protected function rulesStore() {
+        return $this->rules;
     }
 
-    public function show(Genre $genre)
-    {
-        return $genre;
-    }
-
-    public function update(Request $request, Genre $genre)
-    {
-        $this->validate($request, $this->rules);
-        $genre->update($request->all());
-        return $genre;
-    }
-
-    public function destroy(Category $genre)
-    {
-        $genre->delete();
-        return response()->noContent();
+    protected function rulesUpdate() {
+        return $this->rules;
     }
 
 }
