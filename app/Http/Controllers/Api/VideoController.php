@@ -3,27 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Api\BasicCrudController;
-use App\Models\CastMember;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
-class CastMemberController extends BasicCrudController{
+class VideoController extends BasicCrudController{
 
     private $rules;
 
-
     public function __construct() {
         $this->rules = [
-            'name' => 'required|max:255',
-            'type' => 'required|in:' .implode(',', [
-                CastMember::TYPE_ACTOR,
-                CastMember::TYPE_DIRECTOR
-            ])
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'year_launched' => 'required|date_format:Y',
+            'opened' => 'boolean',
+            'rating' => 'required|in:' .implode(',', Video::RATING_LIST),
+            'duration' => 'required|integer'
         ];
     }
 
-
     protected function model() {
-        return CastMember::class;
+        return Video::class;
     }
 
     protected function rulesStore() {

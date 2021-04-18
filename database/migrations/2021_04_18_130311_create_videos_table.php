@@ -22,7 +22,7 @@ class CreateVideosTable extends Migration
             $table->string('rating', 3);
             $table->smallInteger('duration');
             $table->softDeletes();
-            $table->timestamp();
+            $table->timestamps();
         });
     }
 
