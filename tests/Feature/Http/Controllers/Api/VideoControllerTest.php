@@ -16,10 +16,18 @@ class VideoControllerTest extends TestCase
     use DatabaseMigrations, TestValidations, TestSaves;
 
     private $video;
+    private $sendData;
 
     protected function setUp(): void {
         parent::setUp();
         $this->video = factory(Video::class)->create();
+        $this->sendData = [
+            'title' => 'title',
+            'description' => 'description',
+            'year_launched' => 2010,
+            'rating' => Video::RATING_LIST[0],
+            'duration' => 90
+        ];
     }
 
     public function testIndex()
@@ -33,12 +41,12 @@ class VideoControllerTest extends TestCase
 
     public function testShow()
     {
-        $genre = factory(Genre::class)->create();
-        $response = $this->get(route('videos.show', ['video' => $genre->id]));
+        $video = factory(Video::class)->create();
+        $response = $this->get(route('videos.show', ['video' => $video->id]));
 
         $response
             ->assertStatus(200)
-            ->assertJson($genre->toArray());
+            ->assertJson($video->toArray());
     }
 
     public function testInvalidationData()
@@ -122,55 +130,63 @@ class VideoControllerTest extends TestCase
 
     }
 
-    public function testStore(){
+    public function testSave(){
 
-       $data = [
-           [
-               'name' => 'test',
-               'type' => Video::T
-           ]
-       ];
+        $data = [
 
-    }
-
-    public function testUpdate(){
-
-        $genre = factory(genre::class)->create([
-            'is_active' => false
-        ]);
-
-        $response = $this->json(
-            'PUT',
-            route('videos.update', ['video' => $genre->id]),
             [
-                'name' => 'test',
-                'is_active' => true
-            ]
-        );
+                'send_data' => $this->sendData,
+                'test_data' => $this->sendData + ['opened' => false]
+            ],
 
-        $id = $response->json('id');
-        $genre = genre::find($id);
+            [
+                'send_data' => $this->sendData + ['opened' => true],
+                'test_data' => $this->sendData + ['opened' => true]
+            ],
 
-        $response
-            ->assertStatus(200)
-            ->assertJson($genre->toArray())
-            ->assertJsonFragment([
-                'is_active' => true
+            [
+                'send_data' => $this->sendData + ['rating' => Video::RATING_LIST[1]],
+                'test_data' => $this->sendData + ['rating' => Video::RATING_LIST[1]]
+            ],
+
+        ];
+
+        foreach ($data as $key => $value){
+
+            $response = $this->assertStore(
+                $value['send_data'],
+                $value['test_data'] + ['deleted_at' => null]
+            );
+
+            $response->assertJsonStructure([
+                'created_at',
+                'updated_at'
             ]);
+
+            $this->assertUpdate(
+                $value['send_data'],
+                $value['test_data'] + ['deleted_at' => null]
+            );
+
+            $response->assertJsonStructure([
+                'created_at',
+                'updated_at'
+            ]);
+        }
 
     }
 
     public function testDestroy(){
-        $genre = factory(Genre::class)->create();
+        $video = factory(Video::class)->create();
 
         $response = $this->json(
             'DELETE',
-            route('genres.destroy', ['genre' => $genre->id])
+            route('$videos.destroy', ['$video' => $video->id])
         );
 
         $response->assertStatus(204);
-        $this->assertNull(Genre::find($genre->id));
-        $this->assertNotNull(Genre::withTrashed()->find($genre->id));
+        $this->assertNull(Video::find($video->id));
+        $this->assertNotNull(Video::withTrashed()->find($video->id));
     }
 
     protected function model() {
